@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -24,20 +25,6 @@ class Program
                }
         }
     }
-    /*
-     def insertion_sort(sorted_data):
-    start = time.time()
-    for i in range(len(sorted_data)-1):
-        j = i
-        while j > 0 and sorted_data[j-1] > sorted_data[j]:
-            sorted_data[j-1], sorted_data[j] = sorted_data[j], sorted_data[j-1]
-            j = j - 1
-    end = time.time()
-    if check_if_sorted(sorted_data) == 1:
-        return(end-start)
-    else:
-        return(37)
-     */
     static void SelectionSort(int[] NumberArray)
     {
         int n = NumberArray.Length;
@@ -61,8 +48,11 @@ class Program
 
     static void BubbleSort(int[] NumberArray)
     {
-        while (CheckArray(NumberArray) == false)
+        bool HasAnythingChanged = true;
+
+        while (HasAnythingChanged == true)
         {
+            HasAnythingChanged = false;
             int n = NumberArray.Length;
             for (int i = 0; i < n - 1; i++)
             {
@@ -72,6 +62,7 @@ class Program
 
                     NumberArray[i] = NumberArray[i + 1];
                     NumberArray[i + 1] = temp;
+                    HasAnythingChanged = true;  
                 }
             }
         }
@@ -189,20 +180,5 @@ class Program
             Console.WriteLine("{0} integers Elapsed time: {1}", j * 8000, Stopwatch.Elapsed);
             j *= 2;
         }
-
-
-
-
-        Random rnd = new Random();
-
-        using (StreamWriter Writer = new StreamWriter("RandomNumbers.txt"))
-        {
-            for (int i = 0; i < NumberArray.Length; i++)
-            {
-                Writer.WriteLine(NumberArray[i]);
-            }
-        }
-
-
     }
 }
