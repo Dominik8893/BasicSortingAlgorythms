@@ -2,9 +2,9 @@
 
 class Program
 {
-     static int[] IntArray;
+    static int[] IntArray;
     static string[] StringArray;
-    
+
     static void InsertionSort<T>(T[] Array) where T : IComparable<T>
     {
         int n = Array.Length;
@@ -13,8 +13,8 @@ class Program
         {
             j = i;
             while (j > 0 && (Array[j - 1].CompareTo(Array[j]) > 0))
-            {              
-                (Array[j], Array[j - 1]) = (Array[j - 1], Array[j]);              
+            {
+                (Array[j], Array[j - 1]) = (Array[j - 1], Array[j]);
                 j--;
             }
         }
@@ -36,9 +36,7 @@ class Program
                 }
             }
 
-            T temp = Array[minIndex];
-            Array[minIndex] = Array[i];
-            Array[i] = temp;
+            (Array[minIndex], Array[i]) = (Array[i], Array[minIndex]);       
         }
     }
 
@@ -54,10 +52,7 @@ class Program
             {
                 if (Array[i].CompareTo(Array[i + 1]) > 0)
                 {
-                    T temp = Array[i];
-
-                    Array[i] = Array[i + 1];
-                    Array[i + 1] = temp;
+                    (Array[i + 1], Array[i]) = (Array[i], Array[i + 1]);                  
                     HasAnythingChanged = true;
                 }
             }
@@ -93,7 +88,7 @@ class Program
 
     static void ReadStringsToArray(int Amount)
     {
-        StringArray = File.ReadAllLines("Words.txt").Take(Amount).ToArray();    
+        StringArray = File.ReadAllLines("Words.txt").Take(Amount).ToArray();
     }
 
     static bool CheckArray<T>(T[] Array) where T : IComparable<T>
@@ -118,50 +113,6 @@ class Program
         Stopwatch Stopwatch = new Stopwatch();
         int j = 1;
 
-
-        Console.WriteLine("SelectionSort Integers");
-       // SelectionSort
-        for (int i = 0; i < 5; i++)
-        {
-
-            GenerateNumbers(j * 8000);
-            ReadNumbersToArray();
-            Stopwatch.Restart();
-            SelectionSort(IntArray);
-            Stopwatch.Stop();
-
-            if (CheckArray(IntArray) == false)
-            {
-                Console.WriteLine("Sorted Incorrectly");
-            }
-
-            Console.WriteLine("{0} integers Elapsed time: {1}", j * 8000, Stopwatch.Elapsed);
-            j *= 2;
-        }
-
-
-        Console.WriteLine();
-        Console.WriteLine("BubbleSort  Integers");
-        j = 1;
-        //BubbleSort
-        for (int i = 0; i < 5; i++)
-        {
-
-            GenerateNumbers(j * 8000);
-            ReadNumbersToArray();
-            Stopwatch.Restart();
-            BubbleSort(IntArray);
-            Stopwatch.Stop();
-
-            if (CheckArray(IntArray) == false)
-            {
-                Console.WriteLine("Sorted Incorrectly");
-            }
-
-            Console.WriteLine("{0} integers Elapsed time: {1}", j * 8000, Stopwatch.Elapsed);
-            j *= 2;
-        }
-
         Console.WriteLine();
         Console.WriteLine("InsertionSort  Integers");
         j = 1;
@@ -185,14 +136,59 @@ class Program
         }
 
 
-        Console.WriteLine();
-        Console.WriteLine("InsertionSort  Strings");
-    
-        //InsertionSort
+        Console.WriteLine("\nSelectionSort Integers");
+        j = 1;
+        // SelectionSort
         for (int i = 0; i < 5; i++)
         {
 
-            ReadStringsToArray((i+1)*4000);
+            GenerateNumbers(j * 8000);
+            ReadNumbersToArray();
+            Stopwatch.Restart();
+            SelectionSort(IntArray);
+            Stopwatch.Stop();
+
+            if (CheckArray(IntArray) == false)
+            {
+                Console.WriteLine("Sorted Incorrectly");
+            }
+
+            Console.WriteLine("{0} integers Elapsed time: {1}", j * 8000, Stopwatch.Elapsed);
+            j *= 2;
+        }
+
+
+
+        Console.WriteLine("\nBubbleSort  Integers");
+        j = 1;
+        //BubbleSort
+        for (int i = 0; i < 5; i++)
+        {
+
+            GenerateNumbers(j * 8000);
+            ReadNumbersToArray();
+            Stopwatch.Restart();
+            BubbleSort(IntArray);
+            Stopwatch.Stop();
+
+            if (CheckArray(IntArray) == false)
+            {
+                Console.WriteLine("Sorted Incorrectly");
+            }
+
+            Console.WriteLine("{0} integers Elapsed time: {1}", j * 8000, Stopwatch.Elapsed);
+            j *= 2;
+        }
+
+
+        Console.WriteLine("\nInsertionSort  Strings");
+
+        //InsertionSort
+        j = 1;
+        for (int i = 0; i < 5; i++)
+        {
+
+            ReadStringsToArray(j * 2000);
             Stopwatch.Restart();
 
             InsertionSort(StringArray);
@@ -203,17 +199,19 @@ class Program
                 Console.WriteLine("Sorted Incorrectly");
             }
 
-            Console.WriteLine("{0} Strings Elapsed time: {1}", (i + 1) * 4000, Stopwatch.Elapsed); 
+            Console.WriteLine("{0} Strings Elapsed time: {1}", j * 2000, Stopwatch.Elapsed);
+            j *= 2;
         }
 
-        Console.WriteLine();
-        Console.WriteLine("SelectionSort  Strings");
+
+        Console.WriteLine("\nSelectionSort  Strings");
 
         //SelectionSort
+        j = 1;
         for (int i = 0; i < 5; i++)
         {
 
-            ReadStringsToArray((i + 1) * 4000);
+            ReadStringsToArray(j * 2000);
             Stopwatch.Restart();
 
             SelectionSort(StringArray);
@@ -224,17 +222,19 @@ class Program
                 Console.WriteLine("Sorted Incorrectly");
             }
 
-            Console.WriteLine("{0} Strings Elapsed time: {1}", (i + 1) * 4000, Stopwatch.Elapsed);
+            Console.WriteLine("{0} Strings Elapsed time: {1}", j * 2000, Stopwatch.Elapsed);
+            j *= 2;
         }
 
-        Console.WriteLine();
-        Console.WriteLine("BubbleSort  Strings");
+
+        Console.WriteLine("\nBubbleSort  Strings");
 
         //BubbleSort
+        j = 1;
         for (int i = 0; i < 5; i++)
         {
 
-            ReadStringsToArray((i + 1) * 4000);
+            ReadStringsToArray(j * 2000);
             Stopwatch.Restart();
 
             BubbleSort(StringArray);
@@ -245,7 +245,8 @@ class Program
                 Console.WriteLine("Sorted Incorrectly");
             }
 
-            Console.WriteLine("{0} Strings Elapsed time: {1}", (i + 1) * 4000, Stopwatch.Elapsed);
+            Console.WriteLine("{0} Strings Elapsed time: {1}", j * 2000, Stopwatch.Elapsed);
+            j *= 2;
         }
 
     }
